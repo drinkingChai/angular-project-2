@@ -1,28 +1,31 @@
 (function() {
   'use strict';
 
-  angular.module('bikingList', [])
+  angular.module('readingList', [])
 
-    .controller('BikingListController', function() {
-      this.rides = rides;
-      this.tags = tags;
+    .controller('ReadingListController', function() {
+      this.books = books;
+      this.genres = genres;
     })
 
-    .directive('rideTags', function() {
+    .directive('bookGenres', function() {
       return {
         restrict: 'E',
-        templateUrl: 'partials/ride-tags.html',
+        templateUrl: 'partials/book-genres.html',
         scope: {
-          tags: '='
+          genres: '='
         }
       }
     })
 
-    .directive('rideCover', function() {
+    .directive('bookCover', function() {
       return {
         restrict: 'E',
-        templateUrl: 'partials/ride-cover.html',
-        replace: true
+        templateUrl: 'partials/book-cover.html',
+        replace: true,
+        scope: {
+          isbn: '='
+        }
       }
     })
 
@@ -33,19 +36,19 @@
         replace: true,
         controller: function() {
           this.showForm = false;
-          this.ride = {tags: {}};
+          this.book = {rating: 5, genres: {}};
 
           this.addReview = function(form) {
-            rides.push(this.ride);
-            this.ride = {tags: {}};
+            books.push(this.book);
+            this.book = {genres: {}};
 
             form.$setPristine();  //set the form validity back
           };
         },
         controllerAs: 'reviewFormCtrl',
         scope: {
-          rides: '=',
-          tags: '='
+          books: '=',
+          genres: '='
         }
       }
     })
@@ -53,63 +56,32 @@
   ;
 
   //data
-  var tags = ['road', 'gravel', 'mountain', 'fatbike', 'cyclocross'];
+  var genres = ['comedy', 'drama', 'horror', 'non-fiction', 'fiction', 'romance', 'tragedy', 'satire'];
 
-  var rides = [
+  var books = [
     {
-      title: 'Cedar Mesa Loop: Ruins and Monuments',
-      city: 'Lake Powell',
-      state: 'UT',
-      country: 'The United States',
-      length: 154,  //distance in miles
-      review: "With its abundance of canyon hikes, Cedar Mesa has long been a popular destination for backpackers. But great bikepacking opportunities abound on the dirt roads atop the mesa and through its washes and canyons. This weekend loop offers the chance to pass through incredible desert landscapes and explore some of the many Ancestral Puebloan ruins in the area.",
-      tags: {'gravel': true, 'road': true, 'moutain': false},
-      bikepackingFilePath: 'bikepacking-cedar-mesa',
-      bikepackingImgPath: '2016/07/bikepacking-cedar-mesa_02.jpg'
+      title: 'Pro Cycling on $10 a Day: From Fat Kid to Euro Pro',
+      isbn: '1937715248',
+      author: 'Jamie Smith',
+      rating: 5,
+      review: "We have discovered a light-hearted, hard-working rider with strong convictions.",
+      genres: {'non-fiction': true}
     },
     {
-      title: 'Red Meadow Pass Loop',
-      city: 'Whitefish',
-      state: 'MT',
-      country: 'The United States',
-      length: 104,
-      review: "A lovely weekend dirt wander that takes in Montana's Whitefish Range, set just west of Glacier's staggering peaks and chock-full of dirt roads, singletrack, and stunning views. Named after a classic point along the GDMBR, the route climbs to the 5600' Red Meadow Pass and continues along a vehicle-free dirt road meandering in the laps of giants in Glacier National Park.",
-      tags: {},
-      bikepackingFilePath: 'red-meadow-pass',
-      bikepackingImgPath: '2016/07/red-meadow-100-montana_01.jpg'
+      title: 'Hyperbole and a Half: Unfortunate Situations, Flawed Coping Mechanisms, Mayhem, and Other Things That Happened',
+      isbn: '1451666179',
+      author: 'Allie Brosh',
+      rating: 4,
+      review: "In a culture that encourages people to carry mental illness as a secret burden . . . Brosh's bracing honesty is a gift.",
+      genres: {'comedy': true, 'horror': true, 'tragedy': true}
     },
     {
-      title: "Bikepacking Abruzzo: The Wolf's Lair",
-      city: "L'Aquila",
-      state: '',
-      country: 'Italy',
-      length: 241,
-      review: "A mixed terrain bikepacking loop through Abruzzo, Italy, an incredibly diverse region set amongst the spectacular Apennines mountains. This never-ending series of gravel doubletrack, stunning landscapes, delicious food and medieval villages will lead you into the “wolf’s lair” to discover the wild side of Abruzzo.",
-      tags: {},
-      bikepackingFilePath: 'bikepacking-abruzzo',
-      bikepackingImgPath: '2016/07/bikepacking-abruzzo-00.jpg'
-    },
-    {
-      title: 'Slate Springs Overnighter',
-      city: 'Mount Solon',
-      state: 'VA',
-      country: 'The United States',
-      length: 52,
-      review: "The Shenandoah Mountain range just west of Harrisonburg, VA harbors some of the finest dirt roads on the east coast. This bikepacking overnighter route cuts through its heart and can be expanded to a weekend ride or more…",
-      tags: {},
-      bikepackingFilePath: 'overnighter-harrisonburg-va',
-      bikepackingImgPath: '2016/05/slate-springs-overnighter-18.jpg'
-    },
-    {
-      title: 'Two Gorges Gravel',
-      city: 'Morganton',
-      state: 'NC',
-      country: 'The United States',
-      length: 75,
-      review: "This gravel bikepacking loop skirts the rim of Linville Gorge and passes through the Wild and Scenic Wilson Creek Gorge before returning to Morganton, NC via the Catawba River Greenway. Boasting 6,250+ feet of climbing over 74 miles, it's a challenge. But with incredible scenery, plenty of camping opportunities, and a speedy 20 mile descent, it makes a great sub-24 hour escape...",
-      tags: {},
-      bikepackingFilePath: 'two-gorges-gravel-s24o',
-      bikepackingImgPath: '2016/05/two-gorges-S24O-16.jpg'
+      title: 'Beyond the Dark Portal',
+      isbn: '1416550860',
+      author: 'Aaron Rosenberg',
+      rating: 4,
+      review: "This book was an excellent ride that took you through one of the key components associated with the lore of Azeroth. If you are looking for a fun story, this is it. No working knowledge of the series is necessary, just enjoy.",
+      genres: {'fiction': true, 'romance': true, 'drama': true}
     }
   ];
 

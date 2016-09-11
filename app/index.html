@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="bikingList" class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="readingList" class="no-js"> <!--<![endif]-->
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -27,27 +27,29 @@
   <![endif]-->
 
   <div class="container">
-    <h1>Angular Bikepacking List is Awesome</h1>
+    <h1>Angular Reading List is Awesome</h1>
 
-    <div class="row" ng-controller="BikingListController as bikingListCtrl">
+    <div class="row" ng-controller="ReadingListController as readingListCtrl">
 
-      <button class="btn btn-default" ng-click="reviewFormCtrl.showForm = !reviewFormCtrl.showForm">{{reviewFormCtrl.showForm ? "Cancel" : "Create Review"}}</button>
+      <button class="btn btn-default col-md-offset-2" ng-click="reviewFormCtrl.showForm = !reviewFormCtrl.showForm">{{reviewFormCtrl.showForm ? "Cancel" : "Create Review"}}</button>
       <!--by setting showForm to !showForm, it will change to the state it isn't (true/false)-->
-      <hr>
+      <hr class="col-md-8 col-md-offset-2">
 
-      <review-form ng-show="reviewFormCtrl.showForm" rides="bikingListCtrl.rides" tags="bikingListCtrl.tags" ></review-form>
+      <review-form ng-show="reviewFormCtrl.showForm" books="readingListCtrl.books" genres="readingListCtrl.genres" ></review-form>
 
       <ul class="list-unstyled">
-        <li class="row" ng-repeat="ride in bikingListCtrl.rides">
-          <hr>
-            <div class="col-md-4">
-              <ride-cover></ride-cover>
+        <li class="row" ng-repeat="book in readingListCtrl.books">
+          <hr class="col-md-8 col-md-offset-2">
+            <div class="col-md-2 col-md-offset-2">
+              <book-cover isbn="book.isbn"></book-cover>
             </div>
 
-            <div class="col-md-8">
-              <h4>{{ride.title}}</h4>
-              <ride-tags tags="ride.tags"></ride-tags>
-              <h5>{{ride.review}}"</h5>
+            <div class="col-md-6">
+              <h4>{{book.title}}</h4>
+              <h5>{{book.author}}</h5>
+              <h5 class="rating">{{book.rating}}/5</h5>
+              {{book.review}}
+              <book-genres genres="book.genres"></book-genres>
             </div>
 
         </li>
